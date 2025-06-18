@@ -58,9 +58,9 @@ public class Livro {
 
     public Livro(DadosLivro dados) {
         this.titulo = dados.titulo();
-        this.autor = dados.autor();
-        this.idiomaOriginal = dados.idiomaOriginal();
-        this.numeroDownloads = dados.numeroDownloads();
+        this.autor = dados.autor().getFirst().toString();
+        this.idiomaOriginal = dados.idiomaOriginal().getFirst();
+        this.numeroDownloads = String.valueOf(dados.numeroDownloads());
     }
 
 

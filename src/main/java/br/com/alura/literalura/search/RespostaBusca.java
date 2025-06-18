@@ -1,14 +1,10 @@
 package br.com.alura.literalura.search;
 
 import br.com.alura.literalura.model.DadosLivro;
-
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
-public class RespostaBusca {
-    private int count;
-    private List<DadosLivro> results;
-
-
-
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record RespostaBusca (@JsonAlias("results")List<DadosLivro> resultado){
 }

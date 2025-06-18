@@ -40,9 +40,10 @@ public class Autor {
         this.nome = nome;
     }
 
-
-
-
-
-
+    public Autor(DadosAutor dadosAutor) {
+        this.nome = dadosAutor.nomeAutor();
+        this.anoNascimento = dadosAutor.anoNascimento();
+        this.anoFalecimento = dadosAutor.anoFalecimento();
+        this.livrosEscritos = dadosAutor.livrosEscritos(); // CONECTAR AO DB
+    }
 }
