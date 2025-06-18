@@ -1,5 +1,7 @@
 package br.com.alura.literalura.principal;
 
+import br.com.alura.literalura.model.DadosLivro;
+import br.com.alura.literalura.search.BuscarLivro;
 import br.com.alura.literalura.service.GutendexService;
 
 import java.util.Scanner;
@@ -28,7 +30,7 @@ public class Main {
                 case 1:
                     System.out.print("Digite o título do livro para buscar: ");
                     busca = leitura.nextLine();
-                    String resultado = g.buscarLivros(busca);
+                    DadosLivro resultado = g.buscar(busca, new BuscarLivro());
                     System.out.println(resultado);
                     break;
                 case 2:

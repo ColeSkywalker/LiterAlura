@@ -1,4 +1,8 @@
 package br.com.alura.literalura.model;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-public record DadosLivro(String titulo, String autor, String sinopse, String genero, String idiomaOriginal, String numeroDownloads){
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record DadosLivro(@JsonAlias("title") String titulo, @JsonAlias("authors") String autor,
+                         @JsonAlias("languages") String idiomaOriginal, @JsonAlias("download_count") String numeroDownloads){
 }

@@ -56,5 +56,12 @@ public class Livro {
         this.idiomaOriginal = idiomaOriginal;
     }
 
+    public Livro(DadosLivro dados) {
+        this.titulo = dados.titulo();
+        this.autor = dados.autor();
+        this.idiomaOriginal = dados.idiomaOriginal();
+        this.numeroDownloads = dados.numeroDownloads();
+    }
+
 
 }
