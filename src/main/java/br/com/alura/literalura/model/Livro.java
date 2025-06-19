@@ -8,7 +8,7 @@ public class Livro {
     @Column(unique = true)
     private String titulo;
     private    String idiomaOriginal;
-    private String numeroDownloads;
+    private int numeroDownloads;
     @ManyToOne
     @JoinColumn(name = "autor_id")
     private Autor autor;
@@ -37,11 +37,11 @@ public class Livro {
     }
 
 
-    public String getNumeroDownloads() {
+    public int getNumeroDownloads() {
         return numeroDownloads;
     }
 
-    public void setNumeroDownloads(String numeroDownloads) {
+    public void setNumeroDownloads(int numeroDownloads) {
         this.numeroDownloads = numeroDownloads;
     }
 
@@ -56,7 +56,7 @@ public class Livro {
     public Livro(DadosLivro dados) {
         this.titulo = dados.titulo();
         this.idiomaOriginal = dados.idiomaOriginal().getFirst();
-        this.numeroDownloads = String.valueOf(dados.numeroDownloads());
+        this.numeroDownloads = dados.numeroDownloads();
     }
 
     @Override
