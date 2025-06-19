@@ -52,7 +52,6 @@ public class ConsultaLivros {
 
 
         autorRepository.save(autor);
-        repositorioLivro.save(livro);
 
         return livro;
     }
