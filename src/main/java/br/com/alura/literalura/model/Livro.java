@@ -1,13 +1,24 @@
 package br.com.alura.literalura.model;
+import jakarta.persistence.*;
 
+
+@Entity
+@Table(name="livro")
 public class Livro {
+    @Column(unique = true)
     private String titulo;
-    private String autor;
-    private String sinopse;
-    private String genero;
-    private String idiomaOriginal;
+    private    String idiomaOriginal;
     private String numeroDownloads;
+    @ManyToOne
+    @JoinColumn(name = "autor_id")
+    private Autor autor;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    public Livro() {
+
+    }
     public String getTitulo() {
         return titulo;
     }
@@ -16,29 +27,15 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public String getAutor() {
-        return autor;
-    }
 
-    public void setAutor(String autor) {
+    public void setAutor(Autor autor) {
         this.autor = autor;
     }
 
-    public String getGenero() {
-        return genero;
+    public Autor getAutor() {
+        return autor;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getSinopse() {
-        return sinopse;
-    }
-
-    public void setSinopse(String sinopse) {
-        this.sinopse = sinopse;
-    }
 
     public String getNumeroDownloads() {
         return numeroDownloads;
@@ -58,10 +55,30 @@ public class Livro {
 
     public Livro(DadosLivro dados) {
         this.titulo = dados.titulo();
-        this.autor = dados.autor().getFirst().toString();
         this.idiomaOriginal = dados.idiomaOriginal().getFirst();
         this.numeroDownloads = String.valueOf(dados.numeroDownloads());
     }
 
+    @Override
+    public String toString() {
+        return String.format("""
+                --------------------------
+                Livro: %s
+                Autor: %s
+                Idioma: %s
+                Número de downloads: %s
+                --------------------------
+                """ , titulo,
+                autor != null ? autor.getNome() : "Desconhecido",
+                idiomaOriginal,
+                numeroDownloads);
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

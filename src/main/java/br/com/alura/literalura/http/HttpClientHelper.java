@@ -16,8 +16,6 @@ public class HttpClientHelper {
                 .GET()
                 .build();
 
-        System.out.println("URL gerada: " + url);
-
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();

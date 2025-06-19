@@ -6,5 +6,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record RespostaBusca (@JsonAlias("results")List<DadosLivro> resultado){
+public record RespostaBusca (@JsonAlias("results")List<DadosLivro> resultado){ // Record responsável pela desserialização do resultado da busca
 }

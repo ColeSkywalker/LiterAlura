@@ -1,12 +1,26 @@
 package br.com.alura.literalura.model;
 
-import java.util.List;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Entity
+@Table(name="autor")
 public class Autor {
     String nome;
     int anoNascimento;
     int anoFalecimento;
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Livro> livrosEscritos;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    public Autor() {
+
+    }
 
     public int getAnoNascimento() {
         return anoNascimento;
@@ -44,6 +58,32 @@ public class Autor {
         this.nome = dadosAutor.nomeAutor();
         this.anoNascimento = dadosAutor.anoNascimento();
         this.anoFalecimento = dadosAutor.anoFalecimento();
-        this.livrosEscritos = dadosAutor.livrosEscritos(); // CONECTAR AO DB
+        this.livrosEscritos = new ArrayList<>();
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        String livrosRegistrados = livrosEscritos.stream()
+                .map(Livro::getTitulo)
+                .collect(Collectors.joining("\n"));
+        return String.format("""
+                --------------------------
+                Nome do autor: %s
+                Ano de nascimento: %s
+                Ano do falecimento: %s
+                Livros: %s
+                --------------------------
+                """ , nome,
+                anoNascimento,
+                anoFalecimento, livrosRegistrados);
     }
 }
