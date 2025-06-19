@@ -35,15 +35,20 @@ public class Principal {
         var opcao = -1;
         while(opcao!= 0){
             System.out.println(menuInicial);
-            opcao = leitura.nextInt();
-            leitura.nextLine();
+            try {
+                opcao = leitura.nextInt();
+                leitura.nextLine();
+            } catch (Exception e) {
+                System.out.println("Caractere não permitido. " + e.getMessage());
+                leitura.nextLine();
+                opcao = -1;
+            }
             String busca;
             switch (opcao) {
                 case 1:
                     System.out.print("Digite o título do livro para buscar: ");
                     busca = leitura.nextLine();
-                    Livro livroBuscado = consultaLivros.buscar(busca);
-                    System.out.println(livroBuscado);
+                    System.out.println(consultaLivros.buscar(busca));
                     break;
                 case 2:
                     consultaLivros.listarLivrosRegistrados();

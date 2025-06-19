@@ -26,7 +26,7 @@ public class ConsultaLivros {
         this.autorRepository = autorRepository;
     }
 
-    public Livro buscar(String termoDeBusca){ // Busca livro na API
+    public Livro buscar(String termoDeBusca) { // Busca livro na API
         String url = BASE_URL + "?search=" + termoDeBusca.replace(" ", "+");
 
         var json = HttpClientHelper.get(url);
@@ -52,30 +52,49 @@ public class ConsultaLivros {
 
 
         autorRepository.save(autor);
+        repositorioLivro.save(livro);
 
         return livro;
     }
 
-    public void listarLivrosRegistrados(){
+    public void listarLivrosRegistrados() {
         var livro = repositorioLivro.findAll();
         livro.stream().forEach(System.out::println);
     }
 
-    public String livrosPorIdioma(){
-        System.out.println("Selecione um idioma:");
-        System.out.println("1|Inglês (en), 2| Português (pt), 3| Espanhol (sp)");
+    public String livrosPorIdioma() {
+        String idiomaSelecionado = "";
+        int escolha = 0;
+
+        System.out.println("Selecione um idioma: ");
+        System.out.println("Inglês - 1 | Portugues - 2 | Espanhol - 3");
         Scanner leitura = new Scanner(System.in);
-        String idiomaSelecionado = leitura.nextLine();
+
+
+        try {
+            escolha = leitura.nextInt();
+        } catch (Exception e) {
+            System.out.println("Caractere digitado inválido, utilize apenas os números inteiros 1|2|3");
+            leitura.nextLine();
+        }
+
+        if (escolha == 1) {
+            idiomaSelecionado = "en";
+        } else if (escolha == 2) {
+            idiomaSelecionado = "pt";
+        } else if (escolha == 3) {
+            idiomaSelecionado = "es";
+        } else {
+            return "O caractere digitado não é válido";
+        }
+
         List<Livro> livro = repositorioLivro.findByIdiomaOriginalContainingIgnoreCase(idiomaSelecionado);
-        if(livro.isEmpty()){
+        if (livro.isEmpty()) {
             return "Não encontramos livros registrados com o idioma selecionado.";
-        }else{
+        } else {
             return livro.stream()
                     .map(Livro::toString)
                     .collect(Collectors.joining("\n"));
-
         }
-
     }
-
 }

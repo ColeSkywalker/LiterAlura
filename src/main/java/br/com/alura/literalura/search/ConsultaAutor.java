@@ -25,13 +25,18 @@ public class ConsultaAutor {
     public String listarAutoresVivosDeterminadoAno(){
         System.out.println("Digite um ano: ");
         Scanner leitura = new Scanner(System.in);
-        int ano = leitura.nextInt();
+        int ano = 0;
+        try {
+            ano = leitura.nextInt();
+        } catch (Exception e) {
+            System.out.println("Uso de caracteres não permitidos. Utilize apenas números inteiros." + e.getMessage());
+        }
 
         List<Autor> autoresVivos = autorRepository
                 .findByAnoNascimentoLessThanEqualAndAnoFalecimentoGreaterThan(ano, ano);
 
         if (autoresVivos.isEmpty()) {
-            return "Nenhum autor estava vivo nesse ano.";
+            return "Nenhum autor registrado estava vivo nesse ano.";
         }
 
         return autoresVivos.stream()
